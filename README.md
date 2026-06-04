@@ -10,28 +10,30 @@ bist/
 └── admin/     # Admin dashboard (React + Vite)
 ```
 
-## Development
+## Stack
 
-**School website** (port 5173):
+- **Frontend** — React, Vite, Tailwind CSS
+- **Backend** — Supabase (database, auth, storage)
+- **Languages** — French & Arabic (RTL support)
+
+## Getting Started
+
+Install dependencies and start each app:
+
 ```bash
+# School website
+npm install
+npm run dev
+
+# Admin panel
+cd admin
+npm install
 npm run dev
 ```
 
-**Admin panel** (port 5174):
-```bash
-cd admin && npm run dev
-```
+Both apps require a `.env` file with the Supabase project credentials:
 
-## Environment variables
-
-Both apps require a `.env` file:
 ```
 VITE_SUPABASE_URL=...
 VITE_SUPABASE_ANON_KEY=...
 ```
-
-## Deployment
-
-Deployed as a single Vercel project.
-- School website → `dist/`
-- Admin panel → `dist/admin-panel/`
