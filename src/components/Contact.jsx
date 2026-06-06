@@ -42,7 +42,7 @@ export default function Contact() {
 
   const contactInfo = [
     { label: c.labelAddress, value: c.addressValue, link: null },
-    { label: c.labelPhone,   value: c.phoneValue,   link: `tel:+212000000000` },
+    { label: c.labelPhone,   value: c.phoneValue,   link: `tel:+212665696565` },
     { label: c.labelEmail,   value: c.emailValue,   link: `mailto:${c.emailValue}` },
     { label: c.labelHours,   value: c.hoursValue,   link: null },
   ]
@@ -91,7 +91,7 @@ export default function Contact() {
                     <p className="font-semibold text-navy-900 text-sm">Badrane International School</p>
                     <p className="text-gray-500 text-xs">Tanger, Maroc</p>
                   </div>
-                  <a href="https://maps.google.com/?q=Tanger+Maroc" target="_blank" rel="noopener noreferrer"
+                  <a href="https://www.google.com/maps/place/%C3%89cole+Badrane/data=!4m2!3m1!1s0x0:0x518c9c4fb8c81c70?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener noreferrer"
                     className="bg-navy-900 text-white text-xs font-medium px-4 py-2 rounded-full hover:bg-crimson-600 transition-colors">
                     {c.mapBtn}
                   </a>
