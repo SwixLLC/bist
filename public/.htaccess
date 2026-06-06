@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Redirect /admin-panel (no slash) to /admin-panel/
+  RewriteRule ^admin-panel$ /admin-panel/ [R=301,L]
+
+  # Admin panel SPA — serve admin-panel/index.html for all non-file routes
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^admin-panel/(.*)$ /admin-panel/index.html [L]
+
+  # Main site SPA — serve index.html for all non-file routes
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /index.html [L]
+</IfModule>
