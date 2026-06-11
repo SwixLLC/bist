@@ -33,14 +33,14 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'
+        (scrolled || menuOpen) ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'
       }`}
     >
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
         <Link to="/" onClick={() => { handleClick('#accueil'); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className="flex items-center gap-3 group">
           <img src="/icon.webp" alt="Badrane International School" className="h-10 w-auto object-contain" />
-          <span className={`hidden sm:block font-heading font-bold text-base leading-tight transition-colors duration-300 ${scrolled ? 'text-navy-900' : 'text-white'}`}>
+          <span className={`hidden sm:block font-heading font-bold text-base leading-tight transition-colors duration-300 ${(scrolled || menuOpen) ? 'text-navy-900' : 'text-white'}`}>
             Badrane<br />International School
           </span>
         </Link>
@@ -93,7 +93,7 @@ export default function Navbar() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className={`lg:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? 'text-navy-900 hover:bg-navy-50' : 'text-white hover:bg-white/10'
+              (scrolled || menuOpen) ? 'text-navy-900 hover:bg-navy-50' : 'text-white hover:bg-white/10'
             }`}
             aria-label="Menu"
           >

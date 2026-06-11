@@ -78,45 +78,81 @@ export default function EventsList() {
             <Link to="/events/new" className="btn btn-primary btn-sm mt-3">{ev.addFirst}</Link>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-left">
-                  <th className="px-6 py-3 font-semibold text-slate-600">{ev.eventTitle.replace(' *','')}</th>
-                  <th className="px-4 py-3 font-semibold text-slate-600 hidden md:table-cell">{ev.startDate.replace(' *','')}</th>
-                  <th className="px-4 py-3 font-semibold text-slate-600 hidden lg:table-cell">{ev.location}</th>
-                  <th className="px-4 py-3 font-semibold text-slate-600">{t.posts.status}</th>
-                  <th className="px-4 py-3 font-semibold text-slate-600 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {events.map(e => {
-                  const s = STATUS_MAP[e.status] || STATUS_MAP.upcoming
-                  return (
-                    <tr key={e.id} className="table-row-hover">
-                      <td className="px-6 py-3">
-                        <p className="font-medium text-slate-800">{e.title}</p>
-                        <p className="text-slate-400 text-xs truncate max-w-xs">{e.description?.substring(0,60)}...</p>
-                      </td>
-                      <td className="px-4 py-3 text-slate-500 hidden md:table-cell whitespace-nowrap">{fmt(e.start_date, lang)}</td>
-                      <td className="px-4 py-3 text-slate-500 hidden lg:table-cell">{e.location || '—'}</td>
-                      <td className="px-4 py-3"><span className={`badge ${s.cls}`}>{s.label}</span></td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-1 justify-end">
-                          <Link to={`/events/${e.id}/edit`} className="btn btn-ghost btn-icon btn-sm text-slate-500 hover:text-navy-700">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
-                          </Link>
-                          <button onClick={() => setDeleteId(e.id)} className="btn btn-ghost btn-icon btn-sm text-slate-400 hover:text-red-600">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
+          <>
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200 text-left">
+                    <th className="px-6 py-3 font-semibold text-slate-600">{ev.eventTitle.replace(' *','')}</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600 hidden md:table-cell">{ev.startDate.replace(' *','')}</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600 hidden lg:table-cell">{ev.location}</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600">{t.posts.status}</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {events.map(e => {
+                    const s = STATUS_MAP[e.status] || STATUS_MAP.upcoming
+                    return (
+                      <tr key={e.id} className="table-row-hover">
+                        <td className="px-6 py-3">
+                          <p className="font-medium text-slate-800">{e.title}</p>
+                          <p className="text-slate-400 text-xs truncate max-w-xs">{e.description?.substring(0,60)}...</p>
+                        </td>
+                        <td className="px-4 py-3 text-slate-500 hidden md:table-cell whitespace-nowrap">{fmt(e.start_date, lang)}</td>
+                        <td className="px-4 py-3 text-slate-500 hidden lg:table-cell">{e.location || '—'}</td>
+                        <td className="px-4 py-3"><span className={`badge ${s.cls}`}>{s.label}</span></td>
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-1 justify-end">
+                            <Link to={`/events/${e.id}/edit`} className="btn btn-ghost btn-icon btn-sm text-slate-500 hover:text-navy-700">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                            </Link>
+                            <button onClick={() => setDeleteId(e.id)} className="btn btn-ghost btn-icon btn-sm text-slate-400 hover:text-red-600">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile view */}
+            <div className="block md:hidden divide-y divide-slate-100">
+              {events.map(e => {
+                const s = STATUS_MAP[e.status] || STATUS_MAP.upcoming
+                return (
+                  <div key={e.id} className="p-4 flex items-center justify-between gap-4">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-slate-800 text-sm truncate">{e.title}</p>
+                      <div className="flex items-center gap-2 mt-1 flex-wrap text-slate-400 text-xs">
+                        <span>{fmt(e.start_date, lang)}</span>
+                        {e.location && (
+                          <>
+                            <span>·</span>
+                            <span className="truncate max-w-[120px]">{e.location}</span>
+                          </>
+                        )}
+                      </div>
+                      <div className="mt-1.5">
+                        <span className={`badge text-[10px] px-2 py-0 ${s.cls}`}>{s.label}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Link to={`/events/${e.id}/edit`} className="btn btn-ghost btn-icon btn-sm text-slate-500 hover:text-navy-700">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                      </Link>
+                      <button onClick={() => setDeleteId(e.id)} className="btn btn-ghost btn-icon btn-sm text-slate-400 hover:text-red-600">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </>
         )}
       </div>
       <ConfirmDialog isOpen={!!deleteId} onClose={() => setDeleteId(null)} onConfirm={handleDelete} loading={deleting} title={ev.deleteTitle} message={ev.deleteMsg} />

@@ -77,14 +77,14 @@ export default function Admissions() {
               <h3 className="font-heading text-xl text-white mb-6">{a.stepsTitle}</h3>
               <div className="space-y-5">
                 {steps.map((step, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-10 h-10 bg-crimson-600 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0">{i + 1}</div>
-                      {i < steps.length - 1 && <div className="w-0.5 h-8 bg-navy-700 mt-1" />}
-                    </div>
-                    <div className="pb-1">
+                  <div key={i} className="relative flex gap-4 pb-6 last:pb-0">
+                    {i < steps.length - 1 && (
+                      <div className="absolute top-10 bottom-0 left-5 w-0.5 bg-navy-700 -translate-x-1/2" />
+                    )}
+                    <div className="w-10 h-10 bg-crimson-600 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0 z-10">{i + 1}</div>
+                    <div className="pt-2">
                       <h4 className="font-semibold text-white text-sm mb-1">{step.title}</h4>
-                      <p className="text-navy-300 text-sm">{step.desc}</p>
+                      <p className="text-navy-300 text-sm leading-relaxed">{step.desc}</p>
                     </div>
                   </div>
                 ))}

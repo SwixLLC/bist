@@ -69,11 +69,11 @@ export default function Hero() {
 
           {/* Title */}
           {heroTitle ? (
-            <h1 className="font-heading text-6xl md:text-7xl xl:text-[5.5rem] text-white leading-[0.9] mb-10 animate-[fadeUp_0.6s_ease_0.2s_both]">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl xl:text-[5.5rem] text-white leading-[0.9] mb-10 animate-[fadeUp_0.6s_ease_0.2s_both]">
               {heroTitle}
             </h1>
           ) : (
-            <h1 className="font-heading text-6xl md:text-7xl xl:text-[5.5rem] text-white leading-[0.9] mb-10 animate-[fadeUp_0.6s_ease_0.2s_both]">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl xl:text-[5.5rem] text-white leading-[0.9] mb-10 animate-[fadeUp_0.6s_ease_0.2s_both]">
               {h.title1}
               <br />
               <em className="not-italic text-crimson-400">{h.title2}</em>
@@ -99,15 +99,15 @@ export default function Hero() {
           </div>
 
           {/* Stats — editorial horizontal bar */}
-          <div className="flex flex-wrap items-stretch gap-0 mt-20 pt-10 border-t border-white/10 animate-[fadeUp_0.6s_ease_0.5s_both]">
+          <div className="grid grid-cols-3 gap-4 sm:flex sm:flex-wrap sm:items-stretch sm:gap-0 mt-20 pt-10 border-t border-white/10 animate-[fadeUp_0.6s_ease_0.5s_both]">
             {[
               { value: stat1Value, label: h.stat1Label },
               { value: stat2Value, label: h.stat2Label },
               { value: stat3Value, label: h.stat3Label },
             ].map((stat, i) => (
-              <div key={i} className={`pr-10 ${i > 0 ? 'pl-10 border-l border-white/10' : ''} ${i < 2 ? 'mr-0' : ''}`}>
-                <p className="font-heading text-5xl font-bold text-white leading-none">{stat.value}</p>
-                <p className="text-white/35 text-[10px] uppercase tracking-[0.2em] mt-2">{stat.label}</p>
+              <div key={i} className={`pr-4 sm:pr-10 ${i > 0 ? 'pl-4 sm:pl-10 border-l border-white/10' : ''} ${i < 2 ? 'mr-0' : ''}`}>
+                <p className="font-heading text-3xl sm:text-5xl font-bold text-white leading-none">{stat.value}</p>
+                <p className="text-white/35 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] mt-2">{stat.label}</p>
               </div>
             ))}
           </div>

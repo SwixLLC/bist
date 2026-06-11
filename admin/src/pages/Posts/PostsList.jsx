@@ -81,52 +81,88 @@ export default function PostsList() {
             <Link to="/posts/new" className="btn btn-primary btn-sm mt-3">{p.addFirst}</Link>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-left">
-                  <th className="px-6 py-3 font-semibold text-slate-600">{p.postTitle.replace(' *','')}</th>
-                  <th className="px-4 py-3 font-semibold text-slate-600 hidden lg:table-cell">{p.publishDate}</th>
-                  <th className="px-4 py-3 font-semibold text-slate-600">{p.status}</th>
-                  <th className="px-4 py-3 font-semibold text-slate-600 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {posts.map(post => (
-                  <tr key={post.id} className="table-row-hover">
-                    <td className="px-6 py-3">
-                      <div className="flex items-center gap-3">
-                        {post.cover_image ? (
-                          <img src={post.cover_image} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" />
-                        ) : (
-                          <div className="w-10 h-10 bg-navy-100 rounded-lg flex items-center justify-center shrink-0">
-                            <svg className="w-5 h-5 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                          </div>
-                        )}
-                        <p className="font-medium text-slate-800 truncate max-w-[220px]">{post.title}</p>
+          <>
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200 text-left">
+                    <th className="px-6 py-3 font-semibold text-slate-600">{p.postTitle.replace(' *','')}</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600 hidden lg:table-cell">{p.publishDate}</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600">{p.status}</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {posts.map(post => (
+                    <tr key={post.id} className="table-row-hover">
+                      <td className="px-6 py-3">
+                        <div className="flex items-center gap-3">
+                          {post.cover_image ? (
+                            <img src={post.cover_image} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" />
+                          ) : (
+                            <div className="w-10 h-10 bg-navy-100 rounded-lg flex items-center justify-center shrink-0">
+                              <svg className="w-5 h-5 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </div>
+                          )}
+                          <p className="font-medium text-slate-800 truncate max-w-[220px]">{post.title}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-slate-500 hidden lg:table-cell">{fmt(post.created_at, lang)}</td>
+                      <td className="px-4 py-3">
+                        <button onClick={() => toggle(post)} className={`badge cursor-pointer hover:opacity-80 transition-opacity ${STATUS_BADGE[post.status]}`}>
+                          {STATUS_LABEL[post.status]}
+                        </button>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-1 justify-end">
+                          <Link to={`/posts/${post.id}/edit`} className="btn btn-ghost btn-icon btn-sm text-slate-500 hover:text-navy-700">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                          </Link>
+                          <button onClick={() => setDeleteId(post.id)} className="btn btn-ghost btn-icon btn-sm text-slate-400 hover:text-red-600">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile view */}
+            <div className="block md:hidden divide-y divide-slate-100">
+              {posts.map(post => (
+                <div key={post.id} className="p-4 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 min-w-0">
+                    {post.cover_image ? (
+                      <img src={post.cover_image} alt="" className="w-12 h-12 rounded-lg object-cover shrink-0" />
+                    ) : (
+                      <div className="w-12 h-12 bg-navy-100 rounded-lg flex items-center justify-center shrink-0">
+                        <svg className="w-6 h-6 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                       </div>
-                    </td>
-                    <td className="px-4 py-3 text-slate-500 hidden lg:table-cell">{fmt(post.created_at, lang)}</td>
-                    <td className="px-4 py-3">
-                      <button onClick={() => toggle(post)} className={`badge cursor-pointer hover:opacity-80 transition-opacity ${STATUS_BADGE[post.status]}`}>
-                        {STATUS_LABEL[post.status]}
-                      </button>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-1 justify-end">
-                        <Link to={`/posts/${post.id}/edit`} className="btn btn-ghost btn-icon btn-sm text-slate-500 hover:text-navy-700">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
-                        </Link>
-                        <button onClick={() => setDeleteId(post.id)} className="btn btn-ghost btn-icon btn-sm text-slate-400 hover:text-red-600">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    )}
+                    <div className="min-w-0">
+                      <p className="font-semibold text-slate-800 truncate text-sm">{post.title}</p>
+                      <p className="text-slate-400 text-xs mt-0.5">{fmt(post.created_at, lang)}</p>
+                      <div className="mt-1">
+                        <button onClick={() => toggle(post)} className={`badge text-[10px] px-2 py-0 cursor-pointer hover:opacity-80 transition-opacity ${STATUS_BADGE[post.status]}`}>
+                          {STATUS_LABEL[post.status]}
                         </button>
                       </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <Link to={`/posts/${post.id}/edit`} className="btn btn-ghost btn-icon btn-sm text-slate-500 hover:text-navy-700">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                    </Link>
+                    <button onClick={() => setDeleteId(post.id)} className="btn btn-ghost btn-icon btn-sm text-slate-400 hover:text-red-600">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
 

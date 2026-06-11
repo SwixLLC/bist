@@ -103,20 +103,20 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-800">{d.title}</h1>
           <p className="text-slate-500 text-sm mt-0.5">{d.subtitle}</p>
         </div>
-        <Link to="/posts/new" className="btn btn-primary">
+        <Link to="/posts/new" className="btn btn-primary justify-center sm:justify-start">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
           {d.newPost}
         </Link>
       </div>
-
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        {cards.map(c => (
-          <Link key={c.label} to={c.to} className="block hover:-translate-y-0.5 transition-transform">
+ 
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {cards.map((c, i) => (
+          <Link key={c.label} to={c.to} className={`block hover:-translate-y-0.5 transition-transform ${i === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
             <StatCard label={c.label} value={c.value} icon={c.icon} color={c.color} sub={c.sub} />
           </Link>
         ))}
